@@ -152,7 +152,6 @@
             label1.Size = new Size(18, 15);
             label1.TabIndex = 1;
             label1.Text = "Kr";
-            label1.Click += label1_Click;
             // 
             // numKr
             // 
@@ -187,6 +186,7 @@
             refreshButton.TabIndex = 5;
             refreshButton.Text = "Refresh";
             refreshButton.UseVisualStyleBackColor = true;
+            refreshButton.Click += refreshButton_Click;
             // 
             // radioPopularityAlgorithm
             // 
@@ -269,7 +269,6 @@
             modifiedImageLabel.Size = new Size(91, 15);
             modifiedImageLabel.TabIndex = 5;
             modifiedImageLabel.Text = "Modified Image";
-            modifiedImageLabel.Click += modifiedImageLabel_Click;
             // 
             // modifiedImagePictureBox
             // 
@@ -282,7 +281,6 @@
             // originalImagePictureBox
             // 
             originalImagePictureBox.ErrorImage = null;
-            originalImagePictureBox.Image = Properties.Resources.dog1;
             originalImagePictureBox.InitialImage = null;
             originalImagePictureBox.Location = new Point(224, 27);
             originalImagePictureBox.Name = "originalImagePictureBox";
@@ -306,7 +304,6 @@
             MinimumSize = new Size(1300, 600);
             Name = "Form1";
             Text = "Form1";
-            Load += Form1_Load;
             popularityAlgorithmParams.ResumeLayout(false);
             popularityAlgorithmParams.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numK).EndInit();
