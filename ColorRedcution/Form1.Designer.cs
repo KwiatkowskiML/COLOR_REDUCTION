@@ -48,8 +48,8 @@
             menuLabel = new Label();
             originalImageLabel = new Label();
             modifiedImageLabel = new Label();
-            originalImagePictureBox = new PictureBox();
             modifiedImagePictureBox = new PictureBox();
+            originalImagePictureBox = new PictureBox();
             popularityAlgorithmParams.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numK).BeginInit();
             ditheringParamsGroupBox.SuspendLayout();
@@ -57,8 +57,8 @@
             ((System.ComponentModel.ISupportInitialize)numKg).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numKr).BeginInit();
             algorithmsGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)originalImagePictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)modifiedImagePictureBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)originalImagePictureBox).BeginInit();
             SuspendLayout();
             // 
             // popularityAlgorithmParams
@@ -264,44 +264,49 @@
             // modifiedImageLabel
             // 
             modifiedImageLabel.AutoSize = true;
-            modifiedImageLabel.Location = new Point(620, 9);
+            modifiedImageLabel.Location = new Point(742, 9);
             modifiedImageLabel.Name = "modifiedImageLabel";
             modifiedImageLabel.Size = new Size(91, 15);
             modifiedImageLabel.TabIndex = 5;
             modifiedImageLabel.Text = "Modified Image";
-            // 
-            // originalImagePictureBox
-            // 
-            originalImagePictureBox.Location = new Point(224, 27);
-            originalImagePictureBox.Name = "originalImagePictureBox";
-            originalImagePictureBox.Size = new Size(375, 398);
-            originalImagePictureBox.TabIndex = 6;
-            originalImagePictureBox.TabStop = false;
+            modifiedImageLabel.Click += modifiedImageLabel_Click;
             // 
             // modifiedImagePictureBox
             // 
-            modifiedImagePictureBox.Location = new Point(605, 27);
+            modifiedImagePictureBox.Location = new Point(742, 27);
             modifiedImagePictureBox.Name = "modifiedImagePictureBox";
-            modifiedImagePictureBox.Size = new Size(428, 398);
+            modifiedImagePictureBox.Size = new Size(512, 512);
             modifiedImagePictureBox.TabIndex = 7;
             modifiedImagePictureBox.TabStop = false;
+            // 
+            // originalImagePictureBox
+            // 
+            originalImagePictureBox.ErrorImage = null;
+            originalImagePictureBox.Image = Properties.Resources.dog1;
+            originalImagePictureBox.InitialImage = null;
+            originalImagePictureBox.Location = new Point(224, 27);
+            originalImagePictureBox.Name = "originalImagePictureBox";
+            originalImagePictureBox.Size = new Size(512, 512);
+            originalImagePictureBox.TabIndex = 8;
+            originalImagePictureBox.TabStop = false;
             // 
             // Form1
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1084, 461);
-            Controls.Add(modifiedImagePictureBox);
+            ClientSize = new Size(1284, 561);
             Controls.Add(originalImagePictureBox);
+            Controls.Add(modifiedImagePictureBox);
             Controls.Add(modifiedImageLabel);
             Controls.Add(originalImageLabel);
             Controls.Add(menuLabel);
             Controls.Add(popularityAlgorithmParams);
             Controls.Add(ditheringParamsGroupBox);
             Controls.Add(algorithmsGroupBox);
-            MaximumSize = new Size(1100, 500);
-            MinimumSize = new Size(1100, 500);
+            MaximumSize = new Size(1300, 600);
+            MinimumSize = new Size(1300, 600);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             popularityAlgorithmParams.ResumeLayout(false);
             popularityAlgorithmParams.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numK).EndInit();
@@ -312,8 +317,8 @@
             ((System.ComponentModel.ISupportInitialize)numKr).EndInit();
             algorithmsGroupBox.ResumeLayout(false);
             algorithmsGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)originalImagePictureBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)modifiedImagePictureBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)originalImagePictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -325,7 +330,6 @@
         private GroupBox ditheringParamsGroupBox;
         private Label originalImageLabel;
         private Label modifiedImageLabel;
-        private PictureBox originalImagePictureBox;
         private PictureBox modifiedImagePictureBox;
         private RadioButton radioPopularityAlgorithm;
         private RadioButton radioOrderedDitheringRelative;
@@ -341,5 +345,6 @@
         private NumericUpDown numKb;
         private NumericUpDown numKg;
         private NumericUpDown numK;
+        private PictureBox originalImagePictureBox;
     }
 }

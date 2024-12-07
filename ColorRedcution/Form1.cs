@@ -11,5 +11,15 @@ namespace ColorRedcution
         {
 
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void modifiedImageLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
