@@ -20,7 +20,14 @@ namespace ColorRedcution
             int kg = (int)numKg.Value;
             int kb = (int)numKb.Value;
 
-            IColorReducer reducer = new AverageDithering();
+            IColorReducer reducer;
+
+            if (radioAverageDithering.Checked)
+                reducer = new AverageDithering();
+            else if (radioOrderedDitheringRelative.Checked)
+                reducer = new OrderedDitheringRelative();
+            else
+                reducer = new OrderedDitheringRelative();
 
             modifiedImage = reducer.GetReducedBitmap(originalImage, kr, kg, kb);
             modifiedImagePictureBox.Image = modifiedImage;
