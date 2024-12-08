@@ -19,6 +19,14 @@ namespace ColorRedcution
             int kr = (int)numKr.Value;
             int kg = (int)numKg.Value;
             int kb = (int)numKb.Value;
+            int k = (int)numK.Value;
+
+            if (radioPopularityAlgorithm.Checked)
+            {
+                modifiedImage = PopularityAlgorithm.QuantizeColors(originalImage, k);
+                modifiedImagePictureBox.Image = modifiedImage;
+                return;
+            }
 
             IColorReducer reducer;
 

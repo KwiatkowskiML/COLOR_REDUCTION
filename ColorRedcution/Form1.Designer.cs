@@ -75,7 +75,7 @@
             // numK
             // 
             numK.Location = new Point(37, 28);
-            numK.Maximum = new decimal(new int[] { 2000, 0, 0, 0 });
+            numK.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             numK.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numK.Name = "numK";
             numK.Size = new Size(120, 23);
