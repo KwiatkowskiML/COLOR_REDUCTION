@@ -32,10 +32,39 @@ namespace ColorRedcution
                 for (int y = 0; y < originalImage.Height; y++)
                 {
                     Color originalColor = originalImage.GetPixel(x, y);
+                    int redComponent;
+                    int greenComponent;
+                    int blueComponent;
 
-                    byte redComponent = (byte)GetClosestColor(int.Min(originalColor.R + bayerR[random.Next(nr), random.Next(nr)], 255), coefsR);
-                    byte greenComponent = (byte)GetClosestColor(int.Min(originalColor.G + bayerG[random.Next(ng), random.Next(ng)], 255), coefsG);
-                    byte blueComponent = (byte)GetClosestColor(int.Min(originalColor.B + bayerB[random.Next(nb), random.Next(nb)], 255), coefsB);
+                    if (kr == 2)
+                    {
+                        if (originalColor.R > bayerR[random.Next(nr), random.Next(nr)])
+                            redComponent = 255;
+                        else
+                            redComponent = 0;
+                    }
+                    else
+                        redComponent = GetClosestColor(int.Min(originalColor.R + bayerR[random.Next(nr), random.Next(nr)], 255), coefsR);
+
+                    if (kg == 2)
+                    {
+                        if (originalColor.G > bayerG[random.Next(ng), random.Next(ng)])
+                            greenComponent = 255;
+                        else
+                            greenComponent = 0;
+                    }
+                    else
+                        greenComponent = GetClosestColor(int.Min(originalColor.G + bayerG[random.Next(ng), random.Next(ng)], 255), coefsG);
+
+                    if (kb == 2)
+                    {
+                        if (originalColor.B > bayerB[random.Next(nb), random.Next(nb)])
+                            blueComponent = 255;
+                        else
+                            blueComponent = 0;
+                    }
+                    else
+                        blueComponent = GetClosestColor(int.Min(originalColor.B + bayerB[random.Next(nb), random.Next(nb)], 255), coefsB);
 
                     Color modifiedColor = Color.FromArgb(redComponent, greenComponent, blueComponent);
                     modifiedImage.SetPixel(x, y, modifiedColor);

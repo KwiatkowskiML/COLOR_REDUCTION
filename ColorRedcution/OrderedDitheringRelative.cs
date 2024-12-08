@@ -31,10 +31,39 @@ namespace ColorRedcution
                 for (int y = 0; y < originalImage.Height; y++)
                 {
                     Color originalColor = originalImage.GetPixel(x, y);
+                    int redComponent;
+                    int greenComponent;
+                    int blueComponent;
 
-                    byte redComponent = (byte)GetClosestColor(int.Min(originalColor.R + bayerR[x % nr, y % nr], 255), coefsR);
-                    byte greenComponent = (byte)GetClosestColor(int.Min(originalColor.G + bayerG[x % ng, y % ng], 255), coefsG);
-                    byte blueComponent = (byte)GetClosestColor(int.Min(originalColor.B + bayerB[x % nb, y % nb], 255), coefsB);
+                    if (kr == 2)
+                    {
+                        if (originalColor.R > bayerR[x % nr, y % nr])
+                            redComponent = 255;
+                        else
+                            redComponent = 0;
+                    }
+                    else 
+                        redComponent = GetClosestColor(int.Min(originalColor.R + bayerR[x % nr, y % nr], 255), coefsR);
+
+                    if (kg == 2)
+                    {
+                        if (originalColor.G > bayerG[x % ng, y % ng])
+                            greenComponent = 255;
+                        else
+                            greenComponent = 0;
+                    }
+                    else
+                        greenComponent = GetClosestColor(int.Min(originalColor.G + bayerG[x % ng, y % ng], 255), coefsG);
+
+                    if (kb == 2)
+                    {
+                        if (originalColor.B > bayerB[x % nb, y % nb])
+                            blueComponent = 255;
+                        else
+                            blueComponent = 0;
+                    }
+                    else
+                        blueComponent = GetClosestColor(int.Min(originalColor.B + bayerB[x % nb, y % nb], 255), coefsB);                  
 
                     Color modifiedColor = Color.FromArgb(redComponent, greenComponent, blueComponent);
                     modifiedImage.SetPixel(x, y, modifiedColor);

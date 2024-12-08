@@ -45,11 +45,12 @@ public class PopularityAlgorithm
             }
         }
 
-        return colorFrequency
+        var result = colorFrequency
             .OrderByDescending(x => x.Value)
             .Take(k)
-            .Select(x => x.Key)
             .ToList();
+
+        return result.Select(x => x.Key).ToList();
     }
 
     private static ColorNode BuildColorTree(List<Color> colors)
@@ -57,7 +58,6 @@ public class PopularityAlgorithm
         if (colors == null || colors.Count == 0)
             return null;
 
-        // Sort colors to create a balanced tree
         colors = colors.OrderBy(c =>
             (c.R * 0.299 + c.G * 0.587 + c.B * 0.114)
         ).ToList();
@@ -91,53 +91,62 @@ public class PopularityAlgorithm
         return best.Color;
     }
 
-    private static void FindClosestColorRecursive(ColorNode node, Color targetColor,
-        ref ColorNode best, ref double minDistance)
+    private static void FindClosestColorRecursive(
+    ColorNode node,
+    Color targetColor,
+    ref ColorNode best,
+    ref double minDistance)
     {
         if (node == null)
             return;
 
+        double targetLuminance = targetColor.R * 0.299 +
+                                  targetColor.G * 0.587 +
+                                  targetColor.B * 0.114;
+
+        double nodeLuminance = node.Color.R * 0.299 +
+                                node.Color.G * 0.587 +
+                                node.Color.B * 0.114;
+
         double currentDistance = ColorDistance(node.Color, targetColor);
+
         if (currentDistance < minDistance)
         {
             minDistance = currentDistance;
             best = node;
         }
 
-        double redDiff = node.Color.R - targetColor.R;
-
-        if (redDiff > 0)
+        if (targetLuminance < nodeLuminance)
         {
+            // target is darker, prioritize left subtree
             FindClosestColorRecursive(node.Left, targetColor, ref best, ref minDistance);
-            if (Math.Abs(redDiff) < minDistance)
+            if (Math.Abs(targetLuminance - nodeLuminance) < minDistance)
+            {
                 FindClosestColorRecursive(node.Right, targetColor, ref best, ref minDistance);
+            }
         }
         else
         {
+            // target is brighter, prioritize right subtree
             FindClosestColorRecursive(node.Right, targetColor, ref best, ref minDistance);
-            if (Math.Abs(redDiff) < minDistance)
+            if (Math.Abs(targetLuminance - nodeLuminance) < minDistance)
+            {
                 FindClosestColorRecursive(node.Left, targetColor, ref best, ref minDistance);
+            }
         }
     }
 
     public static Bitmap QuantizeColors(Bitmap originalBitmap, int k)
     {
-        // Validate inputs
         if (originalBitmap == null)
             throw new ArgumentNullException(nameof(originalBitmap));
         if (k <= 0)
             throw new ArgumentException("K must be a positive integer", nameof(k));
 
-        // Find most popular colors
         var popularColors = FindMostPopularColors(originalBitmap, k);
-
-        // Build color search tree
         var colorTree = BuildColorTree(popularColors);
-
-        // Create a new bitmap to store quantized image
         Bitmap quantizedBitmap = new Bitmap(originalBitmap.Width, originalBitmap.Height);
 
-        // Replace each pixel with closest popular color
         for (int y = 0; y < originalBitmap.Height; y++)
         {
             for (int x = 0; x < originalBitmap.Width; x++)
