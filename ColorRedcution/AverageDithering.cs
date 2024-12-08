@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace ColorRedcution
 {
-    public class AverageDithering : IColorReducer
+    public class AverageDithering : Dither, IColorReducer
     {
         public Bitmap GetReducedBitmap(Bitmap image, int kr, int kg, int kb)
         {
             Bitmap modifiedImage = new Bitmap(image.Width, image.Height);
+            float[] coefsR = FindCoefs(kr);
+            float[] coefsG = FindCoefs(kg);
+            float[] coefsB = FindCoefs(kb);
 
             for (int x = 0; x < image.Width; x++)
             {
@@ -18,9 +21,9 @@ namespace ColorRedcution
                 {
                     Color originalColor = image.GetPixel(x, y);
 
-                    byte redComponent = (byte)AverageDitherComponent(originalColor.R, kr);
-                    byte greenComponent = (byte)AverageDitherComponent(originalColor.G, kg);
-                    byte blueComponent = (byte)AverageDitherComponent(originalColor.B, kb);
+                    byte redComponent = (byte)GetClosestColor(originalColor.R, coefsR);
+                    byte greenComponent = (byte)GetClosestColor(originalColor.G, coefsG);
+                    byte blueComponent = (byte)GetClosestColor(originalColor.B, coefsB);
 
                     Color modifiedColor = Color.FromArgb(redComponent, greenComponent, blueComponent);
                     modifiedImage.SetPixel(x, y, modifiedColor);
@@ -28,13 +31,6 @@ namespace ColorRedcution
             }
 
             return modifiedImage;
-        }
-
-        private int AverageDitherComponent(int component, int k)
-        {
-            int step = 255 / (k - 1);
-            int level = 255 / k;
-            return (component / level) * step;
         }
     }
 }

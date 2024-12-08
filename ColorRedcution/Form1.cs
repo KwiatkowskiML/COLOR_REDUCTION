@@ -28,6 +28,8 @@ namespace ColorRedcution
                 reducer = new OrderedDitheringRelative();
             else if (radioOrderedDitheringRandom.Checked)
                 reducer = new OrderedDitheringRandom();
+            else if (radioErrorDiffusionDithering.Checked)
+                reducer = new ErrorDifussionDithering();
             else
                 reducer = new AverageDithering();
 

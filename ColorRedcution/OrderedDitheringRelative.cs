@@ -32,9 +32,9 @@ namespace ColorRedcution
                 {
                     Color originalColor = originalImage.GetPixel(x, y);
 
-                    byte redComponent = (byte)GetClostestColor(int.Min(originalColor.R + bayerR[x % nr, y % nr], 255), coefsR);
-                    byte greenComponent = (byte)GetClostestColor(int.Min(originalColor.G + bayerG[x % ng, y % ng], 255), coefsG);
-                    byte blueComponent = (byte)GetClostestColor(int.Min(originalColor.B + bayerB[x % nb, y % nb], 255), coefsB);
+                    byte redComponent = (byte)GetClosestColor(int.Min(originalColor.R + bayerR[x % nr, y % nr], 255), coefsR);
+                    byte greenComponent = (byte)GetClosestColor(int.Min(originalColor.G + bayerG[x % ng, y % ng], 255), coefsG);
+                    byte blueComponent = (byte)GetClosestColor(int.Min(originalColor.B + bayerB[x % nb, y % nb], 255), coefsB);
 
                     Color modifiedColor = Color.FromArgb(redComponent, greenComponent, blueComponent);
                     modifiedImage.SetPixel(x, y, modifiedColor);
