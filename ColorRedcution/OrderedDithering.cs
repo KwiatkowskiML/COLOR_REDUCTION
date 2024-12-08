@@ -98,24 +98,25 @@ namespace ColorRedcution
 
             return bayerMatrix;
         }
-        protected int GetColorRelative(int component, int k, int n, int x, int y, int[,] bayersMatrix)
+        protected int GetClostestColor(int color, float[] coefs)
         {
-            int step = 255 / (k - 1);
-            int level = 255 / k;
-            int val = bayersMatrix[x % n, y % n];
-            int newColor = ((component + val) / level) * step;
-            return newColor;
-        }
+            if (color >= 255)
+                return 255;
+            if (color <= 0)
+                return 0;
 
-        protected int GetColorRandom(int component, int k, int n, int[,] bayersMatrix)
-        {
-            Random random = new Random();
+            float finalColor;
+            float coef = color / 255.0f;
 
-            int step = 255 / (k - 1);
-            int level = 255 / k;
-            int val = bayersMatrix[random.Next(n), random.Next(n)];
-            int newColor = ((component + val) / level) * step;
-            return newColor;
+            int i = 0;
+            while (i < coefs.Length - 1 && coef > coefs[i + 1])
+            {
+                i++;
+            }
+
+            finalColor = (Math.Abs(coefs[i] - coef) <= Math.Abs(coefs[i + 1] - coef)) ? coefs[i] : coefs[i + 1];
+
+            return (int)(finalColor * 255);
         }
     }
 }

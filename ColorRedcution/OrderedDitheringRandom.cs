@@ -20,7 +20,12 @@ namespace ColorRedcution
             int[,] bayerG = GetBayersMatrix(ng);
             int[,] bayerB = GetBayersMatrix(nb);
 
+            float[] coefsR = FindCoefs(kr);
+            float[] coefsG = FindCoefs(kg);
+            float[] coefsB = FindCoefs(kb);
+
             Bitmap modifiedImage = new Bitmap(originalImage.Width, originalImage.Height);
+            Random random = new Random();
 
             for (int x = 0; x < originalImage.Width; x++)
             {
@@ -28,9 +33,9 @@ namespace ColorRedcution
                 {
                     Color originalColor = originalImage.GetPixel(x, y);
 
-                    byte redComponent = (byte)GetColorRandom(originalColor.R, kr, nr, bayerR);
-                    byte greenComponent = (byte)GetColorRandom(originalColor.G, kg, ng, bayerG);
-                    byte blueComponent = (byte)GetColorRandom(originalColor.B, kb, nb, bayerB);
+                    byte redComponent = (byte)GetClostestColor(int.Min(originalColor.R + bayerR[random.Next(nr), random.Next(nr)], 255), coefsR);
+                    byte greenComponent = (byte)GetClostestColor(int.Min(originalColor.G + bayerG[random.Next(ng), random.Next(ng)], 255), coefsG);
+                    byte blueComponent = (byte)GetClostestColor(int.Min(originalColor.B + bayerB[random.Next(nb), random.Next(nb)], 255), coefsB);
 
                     Color modifiedColor = Color.FromArgb(redComponent, greenComponent, blueComponent);
                     modifiedImage.SetPixel(x, y, modifiedColor);
