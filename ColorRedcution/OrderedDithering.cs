@@ -24,6 +24,17 @@ namespace ColorRedcution
             return -1;
         }
 
+        protected float[] FindCoefs(int k)
+        {
+            float[] coefs = new float[k];
+            float delta = 1.0f / (k - 1);
+
+            for (int i = 0; i < k; i++)
+                coefs[i] = delta * i;
+
+            return coefs;
+        }
+
         protected int[,] GetBayersMatrix(int n)
         {
             int[,] bayerMatrix = new int[n, n];
