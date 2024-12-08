@@ -26,8 +26,10 @@ namespace ColorRedcution
                 reducer = new AverageDithering();
             else if (radioOrderedDitheringRelative.Checked)
                 reducer = new OrderedDitheringRelative();
+            else if (radioOrderedDitheringRandom.Checked)
+                reducer = new OrderedDitheringRandom();
             else
-                reducer = new OrderedDitheringRelative();
+                reducer = new AverageDithering();
 
             modifiedImage = reducer.GetReducedBitmap(originalImage, kr, kg, kb);
             modifiedImagePictureBox.Image = modifiedImage;

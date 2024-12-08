@@ -8,7 +8,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace ColorRedcution
 {
-    public class OrderedDitheringRelative : OrderedDithering, IColorReducer
+    public class OrderedDitheringRandom : OrderedDithering, IColorReducer
     {
         public Bitmap GetReducedBitmap(Bitmap originalImage, int kr, int kg, int kb)
         {
@@ -28,9 +28,9 @@ namespace ColorRedcution
                 {
                     Color originalColor = originalImage.GetPixel(x, y);
 
-                    byte redComponent = (byte)GetColorRelative(originalColor.R, kr, nr, x, y, bayerR);
-                    byte greenComponent = (byte)GetColorRelative(originalColor.G, kg, ng, x, y, bayerG);
-                    byte blueComponent = (byte)GetColorRelative(originalColor.B, kb, nb, x, y, bayerB);
+                    byte redComponent = (byte)GetColorRandom(originalColor.R, kr, nr, bayerR);
+                    byte greenComponent = (byte)GetColorRandom(originalColor.G, kg, ng, bayerG);
+                    byte blueComponent = (byte)GetColorRandom(originalColor.B, kb, nb, bayerB);
 
                     Color modifiedColor = Color.FromArgb(redComponent, greenComponent, blueComponent);
                     modifiedImage.SetPixel(x, y, modifiedColor);
@@ -38,6 +38,6 @@ namespace ColorRedcution
             }
 
             return modifiedImage;
-        }    
+        }
     }
 }
