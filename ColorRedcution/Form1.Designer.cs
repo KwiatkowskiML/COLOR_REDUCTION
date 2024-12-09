@@ -73,7 +73,6 @@
             popularityAlgorithmParams.TabIndex = 3;
             popularityAlgorithmParams.TabStop = false;
             popularityAlgorithmParams.Text = "Popularity algorithm params";
-            popularityAlgorithmParams.Enter += popularityAlgorithmParams_Enter;
             // 
             // numK
             // 
@@ -330,7 +329,6 @@
             MinimumSize = new Size(1400, 700);
             Name = "Form1";
             Text = "Form1";
-            Load += Form1_Load;
             popularityAlgorithmParams.ResumeLayout(false);
             popularityAlgorithmParams.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numK).EndInit();
