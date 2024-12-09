@@ -110,5 +110,41 @@ namespace ColorRedcution
                 fs.Close();
             }
         }
+
+        private Bitmap GenerateBitmap(int numberOfStripes)
+        {
+            Bitmap bmp = new Bitmap(originalImage.Width, originalImage.Height);
+
+            int stripeWidth = bmp.Width / 8;
+            int stripeStart = 0;
+            for (int stripe = 0; stripe < numberOfStripes; stripe++)
+            {
+                for (int i = stripeStart; i < stripeWidth + stripeStart; i++)
+                {
+                    for (int j = 0; j < bmp.Height; j++)
+                    {
+                        bmp.SetPixel(i, j, Color.Black);
+                    }
+                }
+                stripeStart += stripeWidth;
+                for (int i = stripeStart; i < stripeStart + stripeWidth; i++)
+                {
+                    for (int j = 0; j < bmp.Height; j++)
+                    {
+                        bmp.SetPixel(i, j, Color.White);
+                    }
+                }
+                stripeStart += stripeWidth;
+                stripeWidth /= 2;
+            }
+
+            return bmp;
+        }
+
+        private void createButton_Click(object sender, EventArgs e)
+        {
+            originalImage = GenerateBitmap(10);
+            originalImagePictureBox.Image = originalImage;
+        }
     }
 }

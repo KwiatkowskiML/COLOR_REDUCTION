@@ -310,6 +310,7 @@
             createButton.TabIndex = 11;
             createButton.Text = "Create";
             createButton.UseVisualStyleBackColor = true;
+            createButton.Click += createButton_Click;
             // 
             // Form1
             // 
