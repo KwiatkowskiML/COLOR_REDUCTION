@@ -1,3 +1,4 @@
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace ColorRedcution
@@ -43,6 +44,71 @@ namespace ColorRedcution
 
             modifiedImage = reducer.GetReducedBitmap(originalImage, kr, kg, kb);
             modifiedImagePictureBox.Image = modifiedImage;
+        }
+
+        private void popularityAlgorithmParams_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void loadButton_Click(object sender, EventArgs e)
+        {
+            var filePath = string.Empty;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "*.jpeg|*.png";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    filePath = openFileDialog.FileName;
+                }
+            }
+
+            originalImage = new Bitmap(filePath);
+            originalImagePictureBox.Image = originalImage;
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "JPeg Image|*.jpg|Bitmap Image|*.bmp|PNG file|*.png";
+            saveFileDialog1.Title = "Save an Image File";
+            saveFileDialog1.ShowDialog();
+
+            if (saveFileDialog1.FileName != "")
+            {
+                // Saves the Image via a FileStream created by the OpenFile method.
+                System.IO.FileStream fs =
+                    (System.IO.FileStream)saveFileDialog1.OpenFile();
+                // Saves the Image in the appropriate ImageFormat based upon the
+                // File type selected in the dialog box.
+                // NOTE that the FilterIndex property is one-based.
+                switch (saveFileDialog1.FilterIndex)
+                {
+                    case 1:
+                        modifiedImage.Save(fs, ImageFormat.Jpeg);
+                        break;
+
+                    case 2:
+                        modifiedImage.Save(fs, ImageFormat.Bmp);
+                        break;
+
+                    case 3:
+                        modifiedImage.Save(fs, ImageFormat.Png);
+                        break;
+                }
+
+                fs.Close();
+            }
         }
     }
 }
